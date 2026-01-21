@@ -165,10 +165,11 @@ st.markdown(f"""
 # 6. Raciocínio (Com margem superior garantida pelo CSS)
 with st.expander("📄 Ver Detalhamento do Cálculo"):
     st.markdown(f"""
-    - **Frete com Desconto:** R$ {v_com_desconto:,.2f}
+    - **Frete:** R$ {v_com_desconto:,.2f}
     - **Ad Valorem:** R$ {calc_adv:,.2f}
     - **Extras:** R$ {total_extras:,.2f}
     ---
     **TOTAL: R$ {valor_final:,.2f}**
     """)
+
 

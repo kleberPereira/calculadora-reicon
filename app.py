@@ -62,7 +62,7 @@ st.markdown(f"""
 
 # --- HEADER COM LOGO ---
 try:
-    logo_base64 = get_base64_image("image_aefad8.png")
+    logo_base64 = get_base64_image("Reicon_full.png")
     st.markdown(f"""
         <div class="header-container">
             <img src="data:image/png;base64,{logo_base64}" class="logo-img">
@@ -171,3 +171,4 @@ with st.expander("📄 Ver Detalhamento do Cálculo"):
     ---
     **TOTAL: R$ {valor_final:,.2f}**
     """)
+

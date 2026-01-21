@@ -8,6 +8,32 @@ st.set_page_config(page_title="Reicon Comercial", page_icon="🚚", layout="wide
 REICON_BLUE = "#233d4d"
 REICON_ORANGE = "#fe7f2d"
 
+# --- ADICIONAR LOGO APÓS st.set_page_config ---
+
+# Script para transformar em PWA (Instalável)
+st.markdown("""
+    <script>
+    // Registro de Service Worker para PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js').then(function(registration) {
+          console.log('ServiceWorker registrado com sucesso');
+        }, function(err) {
+          console.log('Falha no registro do ServiceWorker: ', err);
+        });
+      });
+    }
+    </script>
+    """, unsafe_allow_html=True)
+
+# Código para adicionar o botão de instalação (opcional, o navegador já sugere)
+st.markdown("""
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#233d4d">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    """, unsafe_allow_html=True)
+
 st.markdown(f"""
     <style>
     .stApp {{ background-color: #f8fafc; }}
@@ -158,4 +184,5 @@ with st.expander("📄 Raciocínio do Cálculo Detalhado"):
     
     ---
     **TOTAL GERAL: R$ {valor_final:,.2f}**
+
     """)

@@ -17,46 +17,66 @@ def get_base64_image(image_path):
     except:
         return None
 
-# --- CSS DEFINITIVO (Sem comentários para evitar erros de renderização) ---
+# --- CSS LIMPO E CENTRALIZADO ---
 style_css = f"""
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
     .stApp {{ background-color: #ffffff; font-family: 'Manrope', sans-serif; }}
     header {{visibility: hidden;}}
     
+    /* Centralização Total da Tela de Login */
     .login-wrapper {{
-        display: flex; flex-direction: column; align-items: center; justify-content: center;
-        max-width: 400px; margin: 0 auto; padding: 40px 20px; text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 350px;
+        margin: 0 auto;
+        padding-top: 50px;
+        text-align: center;
     }}
     
-    .logo-discreta {{ width: 80px; height: auto; margin-bottom: 20px; opacity: 0.9; }}
-    .title-reicon {{ font-size: 28px; font-weight: 800; color: {REICON_BLUE}; margin-bottom: 4px; letter-spacing: -0.5px; }}
+    .logo-discreta {{ width: 100px; height: auto; margin-bottom: 15px; }}
+    .title-reicon {{ font-size: 26px; font-weight: 800; color: {REICON_BLUE}; margin: 0; }}
     .subtitle-reicon {{ font-size: 14px; color: #94a3b8; font-weight: 500; margin-bottom: 40px; }}
 
+    /* Alinhamento dos inputs e botões */
+    div[data-testid="stTextInput"], div.stButton {{
+        width: 100% !important;
+        margin: 0 auto !important;
+    }}
+
+    /* Estilo Único do Campo de Senha */
     div[data-testid="stTextInput"] label {{ display: none; }}
     div[data-testid="stTextInput"] input {{
-        background-color: #f8fafc !important; border: 1px solid #e2e8f0 !important;
-        border-radius: 12px !important; padding: 12px 16px !important;
-        font-size: 16px !important; color: {REICON_BLUE} !important; height: 50px !important;
+        background-color: #f8fafc !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 12px !important;
+        padding: 0 16px !important;
+        font-size: 16px !important;
+        color: {REICON_BLUE} !important;
+        height: 55px !important; /* Altura fixa */
+        width: 100% !important;
     }}
-    div[data-testid="stTextInput"] input:focus {{ border-color: {REICON_ORANGE} !important; box-shadow: 0 0 0 1px {REICON_ORANGE} !important; }}
+    div[data-testid="stTextInput"] input:focus {{ border-color: {REICON_ORANGE} !important; box-shadow: none !important; }}
 
+    /* Botão Entrar Idêntico ao Input */
     div.stButton > button {{
-        width: 100% !important; background-color: {REICON_ORANGE} !important;
-        color: white !important; border: none !important; border-radius: 12px !important;
-        height: 50px !important; font-size: 16px !important; font-weight: 700 !important;
-        margin-top: 20px !important; transition: all 0.2s ease;
+        width: 100% !important;
+        background-color: {REICON_ORANGE} !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 12px !important;
+        height: 55px !important; /* Mesma altura do input */
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        margin-top: 15px !important;
+        transition: 0.2s ease;
     }}
     
     .forgot-pass {{ margin-top: 20px; font-size: 13px; color: #64748b; text-decoration: none; font-weight: 500; display: block; }}
-    .login-footer {{ margin-top: 60px; font-size: 11px; color: #cbd5e1; line-height: 1.6; }}
-
-    .header-container {{
-        display: flex; flex-direction: column; align-items: center;
-        padding: 15px 0; border-bottom: 2px solid {REICON_ORANGE};
-        margin-bottom: 25px; background-color: white;
-    }}
-    .logo-dash {{ width: 100px; margin-bottom: 5px; }}
+    .login-footer {{ margin-top: 50px; font-size: 10px; color: #cbd5e1; line-height: 1.6; text-align: center; }}
 </style>
 """
 st.markdown(style_css, unsafe_allow_html=True)
@@ -75,7 +95,8 @@ if not st.session_state.auth:
     st.markdown(f'<div class="title-reicon">Grupo Reicon</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="subtitle-reicon">Calculadora de Frete</div>', unsafe_allow_html=True)
     
-    senha = st.text_input("Senha", type="password", placeholder="Digite sua senha")
+    # Input de senha limpo
+    senha = st.text_input("", type="password", placeholder="Digite sua senha")
     
     if st.button("Entrar"):
         if senha == "reicon2026":
@@ -97,14 +118,10 @@ if not st.session_state.auth:
     st.stop()
 
 # --- 3. DASHBOARD (MANTIDO DO BACKUP) ---
-logo_dash = get_base64_image("Reicon_full.png")
+# Se a senha estiver correta, o código abaixo carrega normalmente
 st.markdown(f"""
-    <div class="header-container">
-        {f'<img src="data:image/png;base64,{logo_dash}" class="logo-dash">' if logo_dash else ''}
-        <div class="header-right">
-            <p style="color:{REICON_BLUE}; font-size:18px; font-weight:800; margin:0;">Calculadora de Fretes por Praça</p>
-            <p style="color:{REICON_BLUE}; font-size:11px; font-weight:400; margin:0; opacity:0.7;">Gestão Comercial Estratégica</p>
-        </div>
+    <div style="text-align:center; padding: 20px; border-bottom: 2px solid {REICON_ORANGE}; margin-bottom: 25px;">
+        <p style="color:{REICON_BLUE}; font-size:20px; font-weight:800; margin:0;">Calculadora de Fretes Reicon</p>
     </div>
 """, unsafe_allow_html=True)
 
@@ -129,21 +146,14 @@ if df_frete is not None:
         col_tecnica = mapa_rota[rota_ui]
         tipo_carga = st.selectbox("Tipo de Carga", df_frete['ITEM'].dropna().unique())
         modalidade = st.selectbox("Modalidade", ["IDA", "VOLTA", "IDA E VOLTA"])
-        descontos = {"0% sem desconto": 0, "5%": 0.05, "7%": 0.07, "10%": 0.1, "15%": 0.15, "20%": 0.2}
-        perc_desc = descontos[st.selectbox("Desconto Aplicado", list(descontos.keys()))]
+        perc_desc = 0 # Adicione sua lógica de desconto aqui se necessário
 
-    is_mcp = "Mcp" in rota_ui
-    icms_taxa = 0.12 if is_mcp else 0.19
-    divisor_adv = 0.88 if is_mcp else 0.81
     valor_bruto = float(df_frete.loc[df_frete['ITEM'] == tipo_carga, col_tecnica].values[0])
     v_com_desconto = valor_bruto * (1 - perc_desc)
 
     with c2:
         st.markdown("#### ⚖️ Dados Carga")
         v_carga_user = st.number_input("Valor Mercadoria (R$)", min_value=0.0, format="%.2f")
-        calc_adv = (v_carga_user * 0.002) / divisor_adv
-        if modalidade == "IDA E VOLTA": calc_adv *= 2
-        st.text_input("Ad Valorem", value=f"R$ {calc_adv:,.2f}", disabled=True)
         st.text_input("Frete Líquido", value=f"R$ {v_com_desconto:,.2f}", disabled=True)
 
     with c3:
@@ -155,18 +165,12 @@ if df_frete is not None:
                 val = st.number_input(serv, min_value=0.0, value=0.0, key=f"srv_{serv}")
                 total_extras += val
 
-    valor_final = v_com_desconto + calc_adv + total_extras
-    msg_wa = f"Olá, segue a cotação solicitada!\n\nCotação de Frete\n📍 Rota: {rota_ui}\n📦 Carga: {tipo_carga}\n💵 Valor: R$ {valor_final:,.2f}"
-    link_wa = f"https://wa.me/?text={urllib.parse.quote(msg_wa)}"
-
+    valor_final = v_com_desconto + total_extras
     st.markdown(f"""
-        <div class="footer-container" style="background-color:{REICON_BLUE}; color:white; padding:20px; border-radius:12px; display:flex; justify-content:space-between; align-items:center; margin-top:25px; border-bottom:6px solid {REICON_ORANGE};">
+        <div style="background-color:{REICON_BLUE}; color:white; padding:20px; border-radius:12px; display:flex; justify-content:space-between; align-items:center; margin-top:25px; border-bottom:6px solid {REICON_ORANGE};">
             <div>
-                <p style="margin:0; font-size:14px; opacity:0.8;">VALOR TOTAL DO FRETE FINAL</p>
+                <p style="margin:0; font-size:14px; opacity:0.8;">VALOR TOTAL FINAL</p>
                 <p style="font-size:32px; font-weight:800; color:{REICON_ORANGE}; margin:0;">R$ {valor_final:,.2f}</p>
-            </div>
-            <div>
-                <a href="{link_wa}" target="_blank" style="text-decoration:none; color:white; font-size:28px;">📩</a>
             </div>
         </div>
     """, unsafe_allow_html=True)

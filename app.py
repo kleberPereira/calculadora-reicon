@@ -17,10 +17,10 @@ def get_base64_image(image_path):
     except:
         return None
 
-# --- CSS TOTALMENTE LIMPO E CORRIGIDO ---
-st.markdown(f"""
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <style>
+# --- CSS DEFINITIVO (Sem comentários para evitar erros de renderização) ---
+style_css = f"""
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
     .stApp {{ background-color: #ffffff; font-family: 'Manrope', sans-serif; }}
     header {{visibility: hidden;}}
     
@@ -33,7 +33,6 @@ st.markdown(f"""
     .title-reicon {{ font-size: 28px; font-weight: 800; color: {REICON_BLUE}; margin-bottom: 4px; letter-spacing: -0.5px; }}
     .subtitle-reicon {{ font-size: 14px; color: #94a3b8; font-weight: 500; margin-bottom: 40px; }}
 
-    /* Inputs Estilizados */
     div[data-testid="stTextInput"] label {{ display: none; }}
     div[data-testid="stTextInput"] input {{
         background-color: #f8fafc !important; border: 1px solid #e2e8f0 !important;
@@ -42,7 +41,6 @@ st.markdown(f"""
     }}
     div[data-testid="stTextInput"] input:focus {{ border-color: {REICON_ORANGE} !important; box-shadow: 0 0 0 1px {REICON_ORANGE} !important; }}
 
-    /* Botão Entrar */
     div.stButton > button {{
         width: 100% !important; background-color: {REICON_ORANGE} !important;
         color: white !important; border: none !important; border-radius: 12px !important;
@@ -53,15 +51,15 @@ st.markdown(f"""
     .forgot-pass {{ margin-top: 20px; font-size: 13px; color: #64748b; text-decoration: none; font-weight: 500; display: block; }}
     .login-footer {{ margin-top: 60px; font-size: 11px; color: #cbd5e1; line-height: 1.6; }}
 
-    /* Ajustes Dashboard */
     .header-container {{
         display: flex; flex-direction: column; align-items: center;
         padding: 15px 0; border-bottom: 2px solid {REICON_ORANGE};
         margin-bottom: 25px; background-color: white;
     }}
     .logo-dash {{ width: 100px; margin-bottom: 5px; }}
-    </style>
-    """, unsafe_allow_html=True)
+</style>
+"""
+st.markdown(style_css, unsafe_allow_html=True)
 
 # 2. Lógica de Autenticação
 if 'auth' not in st.session_state:
@@ -98,7 +96,7 @@ if not st.session_state.auth:
     st.markdown('</div>', unsafe_allow_html=True)
     st.stop()
 
-# --- 3. DASHBOARD (MANTIDO CONFORME BACKUP) ---
+# --- 3. DASHBOARD (MANTIDO DO BACKUP) ---
 logo_dash = get_base64_image("Reicon_full.png")
 st.markdown(f"""
     <div class="header-container">
@@ -162,10 +160,10 @@ if df_frete is not None:
     link_wa = f"https://wa.me/?text={urllib.parse.quote(msg_wa)}"
 
     st.markdown(f"""
-        <div class="footer-container">
+        <div class="footer-container" style="background-color:{REICON_BLUE}; color:white; padding:20px; border-radius:12px; display:flex; justify-content:space-between; align-items:center; margin-top:25px; border-bottom:6px solid {REICON_ORANGE};">
             <div>
                 <p style="margin:0; font-size:14px; opacity:0.8;">VALOR TOTAL DO FRETE FINAL</p>
-                <p class="total-value" style="font-size:32px; font-weight:800; color:{REICON_ORANGE}; margin:0;">R$ {valor_final:,.2f}</p>
+                <p style="font-size:32px; font-weight:800; color:{REICON_ORANGE}; margin:0;">R$ {valor_final:,.2f}</p>
             </div>
             <div>
                 <a href="{link_wa}" target="_blank" style="text-decoration:none; color:white; font-size:28px;">📩</a>

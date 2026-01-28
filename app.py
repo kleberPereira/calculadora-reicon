@@ -7,7 +7,7 @@ import os
 # 1. Configuração da Página
 st.set_page_config(page_title="Reicon Comercial", page_icon="🚢", layout="wide")
 
-REICON_BLUE = "#233d4d"
+REICON_BLUE = "#404549"
 REICON_ORANGE = "#fe7f2d"
 
 def get_base64_image(image_path):
@@ -150,3 +150,4 @@ if df_frete is not None:
 
     with st.expander("📄 Memória de Cálculo"):
         st.write(f"Frete: R$ {v_com_desconto:,.2f} | AdVal: R$ {calc_adv:,.2f} | Extras: R$ {total_extras:,.2f}")
+

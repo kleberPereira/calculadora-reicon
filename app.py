@@ -7,111 +7,54 @@ import os
 # 1. Configuração da Página
 st.set_page_config(page_title="Reicon Comercial", page_icon="🚢", layout="wide")
 
-# Definição de Cores Reicon
 REICON_BLUE = "#233d4d"
 REICON_ORANGE = "#fe7f2d"
 
-# Função para converter imagem local para base64
 def get_base64_image(image_path):
     try:
         with open(image_path, "rb") as img_file:
             return base64.b64encode(img_file.read()).decode()
     except: return None
 
-# --- CSS MATERIAL DESIGN 3 (MODERNO & MINIMALISTA) ---
-st.markdown(f"""
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
-    <style>
-    /* Estilo Global */
-    .stApp {{
-        background-color: #fcfcfd;
-        font-family: 'Inter', sans-serif;
-    }}
+# --- CSS LIMPO (Sem comentários para evitar erros de texto na tela) ---
+estilo_ui = f"""
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+<style>
+    .stApp {{ background-color: #fcfcfd; font-family: 'Inter', sans-serif; }}
     
-    /* Header Profissional */
     .header-container {{
-        background-color: white;
-        padding: 20px;
-        border-radius: 0 0 24px 24px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-        margin-bottom: 30px;
-        text-align: center;
-        border-bottom: 3px solid {REICON_ORANGE};
+        background-color: white; padding: 20px; border-radius: 0 0 24px 24px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03); margin-bottom: 30px;
+        text-align: center; border-bottom: 3px solid {REICON_ORANGE};
     }}
     .logo-img {{ width: 140px; height: auto; margin-bottom: 8px; }}
     .header-title {{ color: {REICON_BLUE}; font-size: 22px; font-weight: 800; margin: 0; letter-spacing: -0.5px; }}
-    .header-subtitle {{ color: #64748b; font-size: 13px; font-weight: 400; margin-top: 4px; }}
-
-    /* Cards Material Design */
+    
     div[data-testid="column"] {{
-        background-color: white;
-        padding: 24px;
-        border-radius: 20px;
-        border: 1px solid #f1f5f9;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        background-color: white; padding: 24px; border-radius: 20px;
+        border: 1px solid #f1f5f9; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         transition: all 0.3s ease;
     }}
-    div[data-testid="column"]:hover {{
-        box-shadow: 0 8px 16px rgba(0,0,0,0.05);
-        transform: translateY(-2px);
-    }}
-
-    /* Inputs e Selectboxes */
-    label {{ 
-        font-size: 0.85rem !important; 
-        font-weight: 600 !important; 
-        color: {REICON_BLUE} !important; 
-        margin-bottom: 8px !important;
-        text-transform: none !important;
-    }}
-    div[data-baseweb="select"] {{ border-radius: 12px !important; }}
     
-    /* Expander Estilizado */
-    .stExpander {{
-        border: none !important;
-        background-color: white !important;
-        border-radius: 16px !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
-        margin-bottom: 15px !important;
-    }}
-
-    /* Footer / Valor Final (Destaque) */
+    label {{ font-size: 0.85rem !important; font-weight: 600 !important; color: {REICON_BLUE} !important; margin-bottom: 8px !important; }}
+    
     .footer-container {{
-        background-color: {REICON_BLUE};
-        color: white;
-        padding: 28px;
-        border-radius: 24px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 40px;
-        margin-bottom: 20px;
-        box-shadow: 0 10px 25px rgba(35, 61, 77, 0.2);
-        border-right: 8px solid {REICON_ORANGE};
+        background-color: {REICON_BLUE}; color: white; padding: 28px; border-radius: 24px;
+        display: flex; justify-content: space-between; align-items: center;
+        margin-top: 40px; margin-bottom: 20px; border-right: 8px solid {REICON_ORANGE};
     }}
-    .total-label {{ font-size: 14px; opacity: 0.8; font-weight: 400; margin-bottom: 4px; }}
     .total-value {{ font-size: 36px; font-weight: 800; color: {REICON_ORANGE}; margin: 0; }}
+    
     .wa-btn {{
-        background-color: {REICON_ORANGE};
-        color: white !important;
-        padding: 12px 24px;
-        border-radius: 14px;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-weight: 600;
-        transition: 0.2s;
+        background-color: {REICON_ORANGE}; color: white !important; padding: 12px 24px;
+        border-radius: 14px; text-decoration: none; display: flex;
+        align-items: center; gap: 8px; font-weight: 600; transition: 0.2s;
     }}
-    .wa-btn:hover {{ transform: scale(1.05); background-color: #ff9045; }}
 
-    /* Ícones do Teclado Mobile */
-    div[data-baseweb="select"] input {{
-        readonly: readonly;
-        pointer-events: none !important;
-    }}
-    </style>
-    """, unsafe_allow_html=True)
+    div[data-baseweb="select"] input {{ pointer-events: none !important; }}
+</style>
+"""
+st.markdown(estilo_ui, unsafe_allow_html=True)
 
 # --- HEADER ---
 logo_base64 = get_base64_image("Reicon_full.png")
@@ -119,26 +62,25 @@ st.markdown(f"""
     <div class="header-container">
         {f'<img src="data:image/png;base64,{logo_base64}" class="logo-img">' if logo_base64 else '🚢'}
         <p class="header-title">Calculadora de Fretes por Praça</p>
-        <p class="header-subtitle">Gestão Comercial Estratégica • Reicon Logística</p>
     </div>
 """, unsafe_allow_html=True)
 
-# --- LOGIN (Preservando Lógica) ---
+# --- LOGIN ---
 if 'auth' not in st.session_state: st.session_state.auth = False
 if not st.session_state.auth:
     with st.container():
         _, center, _ = st.columns([1, 2, 1])
         with center:
             st.markdown("### 🔐 Acesso Restrito")
-            senha = st.text_input("Credencial de acesso", type="password", placeholder="Digite sua senha comercial")
-            if st.button("Entrar no Sistema", use_container_width=True):
+            senha = st.text_input("Senha", type="password", placeholder="Digite sua senha")
+            if st.button("Entrar", use_container_width=True):
                 if senha == "reicon2026": 
                     st.session_state.auth = True
                     st.rerun()
                 else: st.error("Senha inválida")
     st.stop()
 
-# --- CARREGAMENTO DE DADOS (Preservando Lógica) ---
+# --- CARREGAMENTO DE DADOS ---
 NOME_ARQUIVO = "APP - Calcular Fretes Por Praças 2026 - Copia.xlsx"
 
 @st.cache_data
@@ -152,83 +94,59 @@ def carregar_dados():
 df_frete = carregar_dados()
 
 if df_frete is not None:
-    # 4. Layout
     c1, c2, c3 = st.columns([1,1,1])
 
     with c1:
-        st.markdown("##### <span class='material-symbols-outlined' style='vertical-align: middle; color:#fe7f2d'>settings</span> Parametros", unsafe_allow_html=True)
+        st.markdown("##### 📋 Parametros")
         mapa_rota = {"Bel-Mcp-Bel": "BLM - MCP", "Bel-Alt-Bel": "BLM - ALT", "Bel-Ita-Bel": "BLM - ITB", "Bel-Sat-Bel": "BLM - STM"}
-        rota_ui = st.selectbox("Selecione a Rota", list(mapa_rota.keys()))
+        rota_ui = st.selectbox("Rota", list(mapa_rota.keys()))
         col_tecnica = mapa_rota[rota_ui]
-        
         tipo_carga = st.selectbox("Tipo de Carga", df_frete['ITEM'].dropna().unique())
-        modalidade = st.selectbox("Modalidade de Frete", ["IDA", "VOLTA", "IDA E VOLTA"])
-        
+        modalidade = st.selectbox("Modalidade", ["IDA", "VOLTA", "IDA E VOLTA"])
         descontos = {"0% sem desconto": 0, "5%": 0.05, "7%": 0.07, "10%": 0.1, "15%": 0.15, "20%": 0.2}
-        perc_desc = descontos[st.selectbox("Aplicar Desconto", list(descontos.keys()))]
+        perc_desc = descontos[st.selectbox("Desconto", list(descontos.keys()))]
 
-    # Cálculos (Preservando Integridade)
+    # Cálculos
     is_mcp = "Mcp" in rota_ui
-    icms_taxa = 0.12 if is_mcp else 0.19
     divisor_adv = 0.88 if is_mcp else 0.81
     valor_bruto = float(df_frete.loc[df_frete['ITEM'] == tipo_carga, col_tecnica].values[0])
     v_com_desconto = valor_bruto * (1 - perc_desc)
 
     with c2:
-        st.markdown("##### <span class='material-symbols-outlined' style='vertical-align: middle; color:#fe7f2d'>balance</span> Dados da Carga", unsafe_allow_html=True)
-        v_carga_user = st.number_input("Valor da Mercadoria (R$)", min_value=0.0, format="%.2f")
+        st.markdown("##### ⚖️ Carga")
+        v_carga_user = st.number_input("Valor Mercadoria (R$)", min_value=0.0, format="%.2f")
         calc_adv = (v_carga_user * 0.002) / divisor_adv
         if modalidade == "IDA E VOLTA": calc_adv *= 2
-        
-        st.text_input("Ad Valorem Calculado", value=f"R$ {calc_adv:,.2f}", disabled=True)
-        st.text_input("Frete Líquido com Desconto", value=f"R$ {v_com_desconto:,.2f}", disabled=True)
+        st.text_input("Ad Valorem", value=f"R$ {calc_adv:,.2f}", disabled=True)
+        st.text_input("Frete Líquido", value=f"R$ {v_com_desconto:,.2f}", disabled=True)
 
     with c3:
-        st.markdown("##### <span class='material-symbols-outlined' style='vertical-align: middle; color:#fe7f2d'>add_box</span> Serviços Extras", unsafe_allow_html=True)
+        st.markdown("##### 🛠️ Extras")
         total_extras = 0.0
-        with st.expander("Expandir lista de serviços"):
+        with st.expander("Expandir Serviços"):
             servicos = ["ESTIVA REMETENTE", "PESAGEM", "ESTIVA DESTINATÁRIO", "OVAÇÃO", "COLETA", "ENTREGA", "EXPURGO", "ENLONAMENTO", "TRANSBORDO", "OUTROS"]
             for serv in servicos:
                 val = st.number_input(serv, min_value=0.0, value=0.0, key=f"srv_{serv}")
                 total_extras += val
 
-    # 5. Resultado Final
+    # Resultado Final
     valor_final = v_com_desconto + calc_adv + total_extras
-
-    msg_wa = (
-        "Olá, segue a cotação solicitada!\n\n"
-        "Cotação de Frete\n"
-        f"📍 Rota: {rota_ui}\n"
-        f"📦 Carga: {tipo_carga}\n"
-        f"💵 Valor: R$ {valor_final:,.2f}\n\n"
-        "Estamos à disposição e aguardamos sua resposta!"
-    )
+    msg_wa = f"Olá, segue a cotação solicitada!\n📍 Rota: {rota_ui}\n📦 Carga: {tipo_carga}\n💵 Valor: R$ {valor_final:,.2f}"
     link_wa = f"https://wa.me/?text={urllib.parse.quote(msg_wa)}"
 
     st.markdown(f"""
         <div class="footer-container">
             <div>
-                <p class="total-label">VALOR TOTAL DO FRETE FINAL</p>
+                <p style="margin:0; font-size:14px; opacity:0.8;">VALOR TOTAL DO FRETE FINAL</p>
                 <p class="total-value">R$ {valor_final:,.2f}</p>
             </div>
             <div>
                 <a href="{link_wa}" target="_blank" class="wa-btn">
-                    <span class="material-symbols-outlined">send</span> Enviar Proposta
+                    <span class="material-symbols-outlined">send</span> Enviar
                 </a>
             </div>
         </div>
     """, unsafe_allow_html=True)
 
-    # 6. Raciocínio (Memória de Cálculo)
-    with st.expander("📄 Memória de Cálculo Detalhada"):
-        st.markdown(f"""
-        <div style="font-size: 14px; color: #475569;">
-        • <b>Frete Base (c/ Desc):</b> R$ {v_com_desconto:,.2f}<br>
-        • <b>Ad Valorem:</b> R$ {calc_adv:,.2f}<br>
-        • <b>Extras:</b> R$ {total_extras:,.2f}<br>
-        <hr style="border:0; border-top:1px solid #e2e8f0; margin:10px 0;">
-        <b>TOTAL: R$ {valor_final:,.2f}</b>
-        </div>
-        """, unsafe_allow_html=True)
-else:
-    st.error("Não foi possível carregar a base de dados.")
+    with st.expander("📄 Memória de Cálculo"):
+        st.write(f"Frete: R$ {v_com_desconto:,.2f} | AdVal: R$ {calc_adv:,.2f} | Extras: R$ {total_extras:,.2f}")

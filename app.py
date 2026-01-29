@@ -136,7 +136,7 @@ if df_frete is not None:
     st.markdown(f"""
         <div class="footer-container">
             <div><p style="margin:0; font-size:14px; opacity:0.8;">VALOR TOTAL FINAL</p><p class="total-value">R$ {valor_final:,.2f}</p></div>
-            <div><a href="{link_wa}" target="_blank" class="wa-btn">{wa_svg} Enviar Proposta</a></div>
+            <div><a href="{link_wa}" target="_blank" class="wa-btn">{wa_svg} Enviar</a></div>
         </div>
     """, unsafe_allow_html=True)
 
@@ -152,3 +152,4 @@ if df_frete is not None:
                 <span style="font-weight: 800; color: {REICON_ORANGE};">R$ {valor_final:,.2f}</span>
             </div>
         """, unsafe_allow_html=True)
+

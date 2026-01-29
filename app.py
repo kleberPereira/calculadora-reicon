@@ -118,7 +118,7 @@ if df_frete is not None:
     with c2:
         st.markdown("##### ⚖️ Carga")
         # UX: value=None cria um placeholder limpo. format="%.2f" e step garantem a precisão.
-        v_carga_user = st.number_input("Valor Mercadoria (R$)", value=None, placeholder="Ex: 50.000,00", format="%.2f")
+        v_carga_user = st.number_input("Valor Mercadoria (R$)", value=None, placeholder="Ex: 1.000,00", format="%.2f")
         v_carga_calc = v_carga_user if v_carga_user else 0.0
         
         calc_adv = (v_carga_calc * 0.002) / divisor_adv
@@ -153,7 +153,7 @@ if df_frete is not None:
             </div>
             <div>
                 <a href="{link_wa}" target="_blank" class="wa-btn">
-                    {wa_svg} Enviar Proposta
+                    {wa_svg} Enviar
                 </a>
             </div>
         </div>
@@ -161,3 +161,4 @@ if df_frete is not None:
 
     with st.expander("📄 Memória de Cálculo"):
         st.write(f"Frete: R$ {v_com_desconto:,.2f} | AdVal: R$ {calc_adv:,.2f} | Extras: R$ {total_extras:,.2f}")
+

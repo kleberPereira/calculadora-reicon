@@ -131,7 +131,7 @@ if df_frete is not None:
         st.markdown("##### 🛠️ Extras")
         total_extras = 0.0
         with st.expander("Inserir Serviços Adicionais"):
-            servicos = ["ESTIVA REMETENTE", "PESAGEM", "ESTIVA DESTINATÁRIO", "OVAÇÃO", "COLETA", "ENTREGA", "EXPURGO", "ENLONAMENTO", "TRANSBORDO", "OUTROS"]
+            servicos = ["Estiva Remetente", "Pesagem", "Estiva Destinatário", "Ovação", "Coleta", "Entrega", "Expurgo", "Enlonamento", "Transbordo", "Outros"]
             for serv in servicos:
                 # UX: value=None para facilitar preenchimento mobile
                 val = st.number_input(serv, value=None, placeholder="0,00", format="%.2f", key=f"srv_{serv}")
@@ -161,4 +161,5 @@ if df_frete is not None:
 
     with st.expander("📄 Memória de Cálculo"):
         st.write(f"Frete: R$ {v_com_desconto:,.2f} | AdVal: R$ {calc_adv:,.2f} | Extras: R$ {total_extras:,.2f}")
+
 
